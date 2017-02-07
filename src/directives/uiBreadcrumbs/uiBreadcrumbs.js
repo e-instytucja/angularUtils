@@ -26,7 +26,7 @@
         module = angular.module(moduleName, ['ui.router']);
     }
 
-    module.directive('uiBreadcrumbs', ['$interpolate', '$state', function($interpolate, $state) {
+    module.directive('uiBreadcrumbs', ['$interpolate', '$state', '$transitions', function($interpolate, $state, $transitions) {
             return {
                 restrict: 'E',
                 templateUrl: function(elem, attrs) {
@@ -41,7 +41,7 @@
                     if ($state.$current.name !== '') {
                         updateBreadcrumbsArray();
                     }
-                    scope.$on('$stateChangeSuccess', function() {
+                    $transitions.onSuccess({}, function() {
                         updateBreadcrumbsArray();
                     });
 
